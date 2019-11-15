@@ -27,40 +27,44 @@ while p < total_num:
                             print("File ",p," of ",total_num," recorded.")
                             p = p + 1
                             try:
-                                business = soup.find(id="mn-member-name-nologo").get_text(strip=True, separator=',')
+                                business = soup.find(id="mn-member-name-nologo").get_text(strip=True, separator=',').split(',')[0]
                             except:
-                                business = ","
+                                business = " "
                             try:
                                 address1 = soup.find('div', class_=['mn-address1']).get_text(strip=True, separator=',')
                             except:
-                                address1 = ","
+                                address1 = " "
                             try:
                                 address2 = soup.find('div', class_=['mn-address2']).get_text(strip=True, separator=',')
                             except:
-                                address2 = ","
+                                address2 = " "
                             try:
                                 city_prov = soup.find('span', class_=['mn-cityspan']).get_text(strip=True, separator=',')
                             except:
-                                city_prov = ","
+                                city_prov = " "
                             try:
                                 state = soup.find('span', class_=['mn-stspan']).get_text(strip=True, separator=',')
                             except:
-                                state = ","
+                                state = " "
                             try:
                                 zipcode = soup.find('span', class_=['mn-zipspan']).get_text(strip=True, separator=',')
                             except:
-                                zipcode = ","
+                                zipcode = " "
                             try:
-                                member_name = soup.find('div', class_=['mn-member-repname']).get_text(strip=True, separator=',')
+                                member_name = soup.find('div', class_=['mn-member-repname']).get_text(strip=True, separator=',').split(',')[0]
                             except:
-                                member_name = ","
+                                member_name = " "
                             try:
-                                member_title = soup.find('div', class_=['mn-member-reptitle']).get_text(strip=True, separator=',')
+                                member_title = soup.find('div', class_=['mn-member-reptitle']).get_text(strip=True, separator=',').split(',')[0]
                             except:
-                                member_title = ","
+                                member_title = " "
+                            try:
+                                category = soup.find('ul', class_=['mn-member-cats']).get_text(strip=True, separator='|').split(',')[0]
+                            except:
+                                member_title = " "
                                 
                             with open('output.txt', 'a+') as file:
-                                file.write('{0},{1},{2},{3},{4},{5},{6},{7},\n'.format(business,member_name,member_title,address1,address2,city_prov,state,zipcode))
+                                file.write('{0},{1},{2},{3},{4},{5},{6},{7},{8}\n'.format(business,member_name,member_title,category,address1,address2,city_prov,state,zipcode))
                     f.close()
              
 print("All done ",total_files," recorded to output.txt")
